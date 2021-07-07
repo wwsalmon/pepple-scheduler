@@ -7,6 +7,10 @@ name = "pypi"
 flask = "*"
 requests = "*"
 python-dotenv = "*"
+pandas = "*"
+matplotlib = "*"
+tabulate = "*"
+openpyxl = "*"
 
 [dev-packages]
 
