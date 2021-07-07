@@ -125,6 +125,13 @@ def decide_if_swap(score_original, groups, people_groups, group, person, swap_gr
     return output
 
 
+def run_algorithm(max_seat, data, aux):
+    max_seat_daily = compute_max_seat_daily(max_seat, aux)
+    groups, people_groups = stochastic_clustering(data, 100, aux, max_seat_daily)
+    set_maximum(max_seat, groups, people_groups, data, aux)
+    print(groups, people_groups)
+
+
 if __name__ == '__main__':
     df = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='Interaction V or IRL')
     aux = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='BU and Preference')

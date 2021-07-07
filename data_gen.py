@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import pandas as pd
 
 from utils import *
-# from cluster_repeat import run_algorithm
+from cluster_repeat import run_algorithm
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                     [get_user_event(user, i, week_dates, events) for i in range(5)]
             )
 
-        # run_algorithm(total_seats, df, aux)
+        run_algorithm(total_seats, df, aux)
 
         week_first_day += datetime.timedelta(days=7)
 

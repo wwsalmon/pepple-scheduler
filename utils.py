@@ -84,7 +84,7 @@ def eliminate_person(group, people_groups, train_data, key, aux, group_num):
     print(candidate + " is removed.")
 
 # check if each day is at least filled to 90% capacity
-def properly_filled(groups, max_seat_daily, threshold=0.25):
+def properly_filled(groups, max_seat_daily, threshold=0.9):
     for i in range(5):
         if len(groups[i+1]) < (max_seat_daily[i] * threshold):
             return False
