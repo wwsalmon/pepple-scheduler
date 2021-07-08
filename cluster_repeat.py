@@ -87,7 +87,7 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         while True:
             swap_person = random.choice(groups[swap_group])
             loop_count += 1
-            if loop_count > 100:
+            if loop_count > 1000:
                 print(swap_person, people_groups, group)
                 raise ValueError("Infinite loop")
             # avoid 2 identical names in one day
@@ -139,8 +139,8 @@ def run_algorithm(max_seat, data, aux):
 
 
 if __name__ == '__main__':
-    df = pd.read_excel(r'data-extra-trimmed.xlsx', sheet_name='Interaction V or IRL')
-    aux = pd.read_excel(r'data-extra-trimmed.xlsx', sheet_name='BU and Preference')
+    df = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='Interaction V or IRL')
+    aux = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='BU and Preference')
 
     train_data = prep_data(df)
     aux = prep_aux(aux)
