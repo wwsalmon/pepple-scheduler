@@ -61,6 +61,8 @@ if __name__ == '__main__':
     week_first_day = month_first_day
 
     while week_first_day < month_last_day:
+        print(week_first_day)
+
         week_dates = [(week_first_day + datetime.timedelta(days=i)).strftime('%Y-%m-%d') for i in range(5)]
 
         df = pd.DataFrame(columns=(['u' + str(users[i]['id']) for i in range(len(users))]))

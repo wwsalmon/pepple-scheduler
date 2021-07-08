@@ -60,7 +60,7 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         # repeated initial assignment to guide evenness
         if properly_filled(groups, max_seat_daily):
             break
-    print(interpret_result(groups, train_data))
+    print(interpret_result(groups, data))
 
     skipped = 0
     for _ in range(iterations):
@@ -92,13 +92,13 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
             continue
 
         score_original, score_original_sum = all_score(data, groups)
-        decide_if_swap(score_original, groups, people_groups, group, person, swap_group, swap_person, train_data)
+        decide_if_swap(score_original, groups, people_groups, group, person, swap_group, swap_person, data)
 
         print(score_original, score_original_sum)
 
     # interpret and display final result
     print(str(skipped) + ' iterations skipped because of incompatibility.')
-    show_result(groups, train_data)
+    show_result(groups, data)
 
     return groups, people_groups
 
@@ -133,8 +133,8 @@ def run_algorithm(max_seat, data, aux):
 
 
 if __name__ == '__main__':
-    df = pd.read_excel(r'data-trimmed.xlsx', sheet_name='Interaction V or IRL')
-    aux = pd.read_excel(r'data-trimmed.xlsx', sheet_name='BU and Preference')
+    df = pd.read_excel(r'data-extra-trimmed.xlsx', sheet_name='Interaction V or IRL')
+    aux = pd.read_excel(r'data-extra-trimmed.xlsx', sheet_name='BU and Preference')
 
     train_data = prep_data(df)
     aux = prep_aux(aux)

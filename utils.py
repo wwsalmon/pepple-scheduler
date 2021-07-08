@@ -7,14 +7,14 @@ from score import *
 # Format the interaction matrix properly
 def prep_data(df):
 	# Need to change this part if data source is different
-	train_data = df.iloc[:16, :15]
-	train_data.columns = uniquify(train_data.iloc[:, 0])
-	train_data.index = uniquify(train_data.iloc[:, 0])
-	train_data = train_data.iloc[1:, 1:]
-	train_data.replace(['P', 'p'], 1, inplace=True)
-	train_data.replace(['V'], 0, inplace=True)
-	train_data.replace(['N'], 0, inplace=True)
-	return train_data
+    train_data = df.iloc[:7, :7]
+    train_data.columns = uniquify(train_data.iloc[:, 0])
+    train_data.index = uniquify(train_data.iloc[:, 0])
+    train_data = train_data.iloc[1:, 1:]
+    train_data.replace(['P', 'p'], 1, inplace=True)
+    train_data.replace(['V'], 0, inplace=True)
+    train_data.replace(['N'], 0, inplace=True)
+    return train_data
 
 # Eliminating duplicated column names
 def uniquify(df_columns):
@@ -84,9 +84,10 @@ def eliminate_person(group, people_groups, train_data, key, aux, group_num):
     print(candidate + " is removed.")
 
 # check if each day is at least filled to 90% capacity
-def properly_filled(groups, max_seat_daily, threshold=0.5):
+def properly_filled(groups, max_seat_daily, threshold=0):
     for i in range(5):
-        if len(groups[i+1]) < (max_seat_daily[i] * threshold):
+        # if len(groups[i+1]) < (max_seat_daily[i] * threshold):
+        if len(groups[i+1]) < 1:
             return False
     return True
 
