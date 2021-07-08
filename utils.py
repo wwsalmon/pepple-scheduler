@@ -7,7 +7,7 @@ from score import *
 # Format the interaction matrix properly
 def prep_data(df):
 	# Need to change this part if data source is different
-    train_data = df.iloc[:10, :10]
+    train_data = df.iloc[:9, :9] # 9 causes infinite loop, 10+ works fine
     train_data.columns = uniquify(train_data.iloc[:, 0])
     train_data.index = uniquify(train_data.iloc[:, 0])
     train_data = train_data.iloc[1:, 1:]
@@ -75,7 +75,7 @@ def eliminate_person(group, people_groups, train_data, key, aux, group_num):
         for j in group:
             if i != j:
                 sum_temp += int(train_data.loc[str(i), str(j)])
-        if len(people_groups[i]) != 1 and sum_temp < min and aux.loc[str(i), str(group_num) + '_MUST'] != 1:
+        if len(people_groups[i]) != 1 and sum_temp < min and aux.loc[str(i), 'MUST_' + str(group_num)] != 1:
             min = sum_temp
             candidate = i
     if candidate != "":

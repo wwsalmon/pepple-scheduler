@@ -87,7 +87,7 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         while True:
             swap_person = random.choice(groups[swap_group])
             loop_count += 1
-            if loop_count > 1000:
+            if loop_count > 100000:
                 print(swap_person, people_groups, group)
                 raise ValueError("Infinite loop")
             # avoid 2 identical names in one day
