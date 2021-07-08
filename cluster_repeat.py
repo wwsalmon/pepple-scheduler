@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from score import *
 from utils import *
 
-MAX_SEAT = 45
+MAX_SEAT = 10
 # This determines how strong regularization is
 LAMBDA = .2
 
@@ -133,13 +133,13 @@ def run_algorithm(max_seat, data, aux):
 
 
 if __name__ == '__main__':
-    df = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='Interaction V or IRL')
-    aux = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='BU and Preference')
+    df = pd.read_excel(r'data-trimmed.xlsx', sheet_name='Interaction V or IRL')
+    aux = pd.read_excel(r'data-trimmed.xlsx', sheet_name='BU and Preference')
 
     train_data = prep_data(df)
     aux = prep_aux(aux)
     max_seat_daily = compute_max_seat_daily(MAX_SEAT, aux)
 
-    groups, people_groups = stochastic_clustering(train_data, 500, aux, max_seat_daily)
+    groups, people_groups = stochastic_clustering(train_data, 100, aux, max_seat_daily)
 
     set_maximum(MAX_SEAT, groups, people_groups, train_data, aux)
