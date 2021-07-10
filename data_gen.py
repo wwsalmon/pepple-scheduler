@@ -43,8 +43,8 @@ def get_user_event(user, day_index, week_dates, events):
     return 0
 
 
-if __name__ == '__main__':
-    res = requests.get(os.environ.get('API_URL') + '/api/getPreferences?username=' + 'pepple')
+def get_day_objects(username):
+    res = requests.get(os.environ.get('API_URL') + '/api/getPreferences?username=' + username)
 
     res_json = res.json()
     users = res_json['data']
@@ -59,6 +59,8 @@ if __name__ == '__main__':
     month_last_day = datetime.datetime.strptime(next_month_days['endDate'], '%Y-%m-%d').date()
 
     week_first_day = month_first_day
+
+    day_objects = []
 
     while week_first_day < month_last_day:
         print(week_first_day)
@@ -82,9 +84,21 @@ if __name__ == '__main__':
 
         groups, people_groups = run_algorithm(total_seats, df, aux)
 
-        print(groups, people_groups)
+        for key in groups.keys():
+            for user in groups[key]:
+                day_objects.append({
+                    "date": (week_first_day + datetime.timedelta(days=key-1)).strftime('%Y-%m-%d'),
+                    "user_id": user
+                })
 
         week_first_day += datetime.timedelta(days=7)
+
+    return day_objects
+
+
+if __name__ == '__main__':
+    day_objects = get_day_objects('pepple')
+    print(day_objects)
 
     # df = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='Interaction V or IRL')
     # aux = pd.read_excel(r'Fake Data Sherry V2.xlsx', sheet_name='BU and Preference')
