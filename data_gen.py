@@ -80,7 +80,9 @@ if __name__ == '__main__':
                     [get_user_event(user, i, week_dates, events) for i in range(5)]
             )
 
-        run_algorithm(total_seats, df, aux)
+        groups, people_groups = run_algorithm(total_seats, df, aux)
+
+        print(groups, people_groups)
 
         week_first_day += datetime.timedelta(days=7)
 

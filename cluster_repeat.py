@@ -38,7 +38,7 @@ def initial_assignment(data, aux, max_seat_daily):
 
         random.shuffle(assignment_list_person)
         if (len(assignment_list_person) < num_day):
-            print("Not enough valid days to assign to" + str(person))
+            # print("Not enough valid days to assign to" + str(person))
             people_groups[person].extend(assignment_list_person)
         else:
             people_groups[person].extend(assignment_list_person[:num_day])
@@ -49,7 +49,7 @@ def initial_assignment(data, aux, max_seat_daily):
             if len(groups[i]) == max_seat_daily[i - 1]:
                 assignment_list.remove(i)
 
-    print(len(groups[1]), len(groups[2]), len(groups[3]), len(groups[4]), len(groups[5]))
+    # print(len(groups[1]), len(groups[2]), len(groups[3]), len(groups[4]), len(groups[5]))
 
     return groups, people_groups
 
@@ -60,7 +60,7 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         # repeated initial assignment to guide evenness
         if properly_filled(groups, max_seat_daily):
             break
-    print(interpret_result(groups, data))
+    # print(interpret_result(groups, data))
 
     skipped = 0
     for _ in range(iterations):
@@ -87,9 +87,10 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         while True:
             swap_person = random.choice(groups[swap_group])
             loop_count += 1
-            if loop_count > 100000:
-                print(swap_person, people_groups, group)
-                raise ValueError("Infinite loop")
+            if loop_count > 1000000:
+                # print(swap_group, groups, swap_person, people_groups, group)
+                # raise ValueError("Infinite loop")
+                break
             # avoid 2 identical names in one day
             if group not in people_groups[swap_person]:
                 break
@@ -100,11 +101,11 @@ def stochastic_clustering(data, iterations, aux, max_seat_daily):
         score_original, score_original_sum = all_score(data, groups)
         decide_if_swap(score_original, groups, people_groups, group, person, swap_group, swap_person, data)
 
-        print(score_original, score_original_sum)
+        # print(score_original, score_original_sum)
 
     # interpret and display final result
-    print(str(skipped) + ' iterations skipped because of incompatibility.')
-    show_result(groups, data)
+    # print(str(skipped) + ' iterations skipped because of incompatibility.')
+    # show_result(groups, data)
 
     return groups, people_groups
 
@@ -135,7 +136,8 @@ def run_algorithm(max_seat, data, aux):
     max_seat_daily = compute_max_seat_daily(max_seat, aux)
     groups, people_groups = stochastic_clustering(data, 100, aux, max_seat_daily)
     set_maximum(max_seat, groups, people_groups, data, aux)
-    print(groups, people_groups)
+    return groups, people_groups
+    # print(groups, people_groups)
 
 
 if __name__ == '__main__':
