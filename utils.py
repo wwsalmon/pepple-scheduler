@@ -81,7 +81,7 @@ def eliminate_person(group, people_groups, train_data, key, aux, group_num):
     if candidate != "":
         group.remove(candidate)
         people_groups[candidate].remove(key)
-    print(candidate + " is removed.")
+    # print(candidate + " is removed.")
 
 # check if each day is at least filled to 90% capacity
 def properly_filled(groups, max_seat_daily, threshold=0):
@@ -93,7 +93,7 @@ def properly_filled(groups, max_seat_daily, threshold=0):
 
 def show_result(groups, train_data):
     result, score_original = interpret_result(groups, train_data)
-    print(result, score_original)
+    # print(result, score_original)
     groups_temp = copy.deepcopy(groups)
     for key in groups_temp.keys():
         while len(groups_temp[key]) < 45:
@@ -115,7 +115,7 @@ def interpret_result(groups, train_data):
         for person in groups[i+1]:
             total_opportunities[i] += np.sum(np.nan_to_num(np.array(train_data.loc[str(person)].tolist())))
     group_rate = np.array(score) / np.array(total_opportunities)
-    print(total_opportunities)
+    # print(total_opportunities)
 
     # numpy_data = np.nan_to_num(train_data.to_numpy())
     # total_all_opportunities = np.sum(numpy_data)
