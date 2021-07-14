@@ -7,12 +7,12 @@ from flask import Flask, request, abort
 
 from data_gen import get_day_objects
 
-app = Flask(__name__)
+application = Flask(__name__)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-@app.route('/')
+@application.route('/')
 def index():
     auth_header = request.headers.get('Authorization')
     if auth_header is None or auth_header[0:6] != 'Bearer' or auth_header[7:] != os.environ.get('API_KEY'):
@@ -26,4 +26,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(debug=True)
