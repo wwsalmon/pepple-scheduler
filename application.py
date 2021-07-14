@@ -19,8 +19,13 @@ def index():
         abort(403)
 
     username = request.args.get('username')
+    month = request.args.get('month')
+    year = request.args.get('year')
 
-    day_objects = get_day_objects(username)
+    if username is None or month is None or year is None:
+        abort(400)
+
+    day_objects = get_day_objects(username, month, year)
 
     return {"day_objects": day_objects}
 

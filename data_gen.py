@@ -43,20 +43,20 @@ def get_user_event(user, day_index, week_dates, events):
     return 0
 
 
-def get_day_objects(username):
-    res = requests.get(os.environ.get('API_URL') + '/api/getPreferences?username=' + username)
+def get_day_objects(username, month, year):
+    res = requests.get(os.environ.get('API_URL') + '/api/getPreferences?username={}&month={}&year={}'.format(username, month, year))
 
     res_json = res.json()
     users = res_json['data']
-    next_month_days = res_json['nextMonthDays']
+    this_month_days = res_json['thisMonthDays']
     schedule_setting = res_json['scheduleSetting']
     events = res_json['events']
 
     default_days = schedule_setting['default_days']
     total_seats = schedule_setting['total_seats']
 
-    month_first_day = datetime.datetime.strptime(next_month_days['startDate'], '%Y-%m-%d').date()
-    month_last_day = datetime.datetime.strptime(next_month_days['endDate'], '%Y-%m-%d').date()
+    month_first_day = datetime.datetime.strptime(this_month_days['startDate'], '%Y-%m-%d').date()
+    month_last_day = datetime.datetime.strptime(this_month_days['endDate'], '%Y-%m-%d').date()
 
     week_first_day = month_first_day
 
