@@ -22,7 +22,7 @@ def initial_assignment(data, aux, max_seat_daily):
 
     for person in people:
         people_groups[person] = []
-        assignment_list_person = copy.deepcopy(assignment_list)
+        assignment_list_person = [1, 2, 3, 4, 5]
         num_day = aux.loc[person, 'NUM_DAY']
         for i in range(5):
 
